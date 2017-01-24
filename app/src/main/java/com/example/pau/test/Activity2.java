@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class Activity2 extends AppCompatActivity implements View.OnClickListener{
+public class Activity2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,20 +18,27 @@ public class Activity2 extends AppCompatActivity implements View.OnClickListener
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        ImageButton bck = (ImageButton) findViewById(R.id.activity2_bck);
-        ImageButton fwd = (ImageButton) findViewById(R.id.activity2_fwd);
-        bck.setOnClickListener(this);
-        fwd.setOnClickListener(this);
+        getSupportActionBar().setTitle(null);
     }
 
     @Override
-    public void onClick(View v){
-        switch(v.getId()) {
-            case R.id.activity2_bck:
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.bck:
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            case R.id.activity2_fwd:
+                return true;
+            case R.id.fwd:
                 startActivity(new Intent(getApplicationContext(), Activity3.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
